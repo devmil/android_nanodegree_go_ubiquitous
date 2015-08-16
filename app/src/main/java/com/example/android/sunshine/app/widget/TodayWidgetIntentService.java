@@ -33,6 +33,7 @@ import com.example.android.sunshine.app.MainActivity;
 import com.example.android.sunshine.app.R;
 import com.example.android.sunshine.app.Utility;
 import com.example.android.sunshine.app.data.WeatherContract;
+import com.example.android.sunshine.common.CommonUtils;
 
 /**
  * IntentService which handles updating all Today widgets with the latest data
@@ -77,7 +78,7 @@ public class TodayWidgetIntentService extends IntentService {
 
         // Extract the weather data from the Cursor
         int weatherId = data.getInt(INDEX_WEATHER_ID);
-        int weatherArtResourceId = Utility.getArtResourceForWeatherCondition(weatherId);
+        int weatherArtResourceId = CommonUtils.getArtResourceForWeatherCondition(weatherId);
         String description = data.getString(INDEX_SHORT_DESC);
         double maxTemp = data.getDouble(INDEX_MAX_TEMP);
         double minTemp = data.getDouble(INDEX_MIN_TEMP);

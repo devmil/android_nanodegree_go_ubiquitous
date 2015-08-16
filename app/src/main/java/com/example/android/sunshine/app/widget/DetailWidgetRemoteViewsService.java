@@ -17,6 +17,7 @@ import com.bumptech.glide.request.target.Target;
 import com.example.android.sunshine.app.R;
 import com.example.android.sunshine.app.Utility;
 import com.example.android.sunshine.app.data.WeatherContract;
+import com.example.android.sunshine.common.CommonUtils;
 
 import java.util.concurrent.ExecutionException;
 
@@ -95,7 +96,7 @@ public class DetailWidgetRemoteViewsService extends RemoteViewsService {
                 RemoteViews views = new RemoteViews(getPackageName(),
                         R.layout.widget_detail_list_item);
                 int weatherId = data.getInt(INDEX_WEATHER_CONDITION_ID);
-                int weatherArtResourceId = Utility.getIconResourceForWeatherCondition(weatherId);
+                int weatherArtResourceId = CommonUtils.getIconResourceForWeatherCondition(weatherId);
                 Bitmap weatherArtImage = null;
                 if ( !Utility.usingLocalGraphics(DetailWidgetRemoteViewsService.this) ) {
                     String weatherArtResourceUrl = Utility.getArtUrlForWeatherCondition(

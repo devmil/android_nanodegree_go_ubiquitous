@@ -40,6 +40,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.android.sunshine.app.data.WeatherContract;
 import com.example.android.sunshine.app.data.WeatherContract.WeatherEntry;
+import com.example.android.sunshine.common.CommonUtils;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -201,12 +202,12 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
             int weatherId = data.getInt(COL_WEATHER_CONDITION_ID);
 
             if ( Utility.usingLocalGraphics(getActivity()) ) {
-                mIconView.setImageResource(Utility.getArtResourceForWeatherCondition(weatherId));
+                mIconView.setImageResource(CommonUtils.getArtResourceForWeatherCondition(weatherId));
             } else {
                 // Use weather art image
                 Glide.with(this)
                         .load(Utility.getArtUrlForWeatherCondition(getActivity(), weatherId))
-                        .error(Utility.getArtResourceForWeatherCondition(weatherId))
+                        .error(CommonUtils.getArtResourceForWeatherCondition(weatherId))
                         .crossFade()
                         .into(mIconView);
             }

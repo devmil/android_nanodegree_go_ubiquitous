@@ -35,6 +35,8 @@ import com.example.android.sunshine.app.R;
 import com.example.android.sunshine.app.Utility;
 import com.example.android.sunshine.app.data.WeatherContract;
 import com.example.android.sunshine.app.muzei.WeatherMuzeiSource;
+import com.example.android.sunshine.app.wear.WearUpdateHelper;
+import com.example.android.sunshine.common.CommonUtils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -86,8 +88,11 @@ public class SunshineSyncAdapter extends AbstractThreadedSyncAdapter {
     public static final int LOCATION_STATUS_UNKNOWN = 3;
     public static final int LOCATION_STATUS_INVALID = 4;
 
+    private WearUpdateHelper mWearUpdateHelper;
+
     public SunshineSyncAdapter(Context context, boolean autoInitialize) {
         super(context, autoInitialize);
+        mWearUpdateHelper = new WearUpdateHelper(context);
     }
 
     @Override
@@ -344,6 +349,7 @@ public class SunshineSyncAdapter extends AbstractThreadedSyncAdapter {
                 updateWidgets();
                 updateMuzei();
                 notifyWeather();
+                updateWear();
             }
             Log.d(LOG_TAG, "Sync Complete. " + cVVector.size() + " Inserted");
             setLocationStatus(getContext(), LOCATION_STATUS_OK);
@@ -361,6 +367,11 @@ public class SunshineSyncAdapter extends AbstractThreadedSyncAdapter {
         Intent dataUpdatedIntent = new Intent(ACTION_DATA_UPDATED)
                 .setPackage(context.getPackageName());
         context.sendBroadcast(dataUpdatedIntent);
+    }
+
+    private void updateWear() {
+
+        mWearUpdateHelper.doUpdate();
     }
 
     private void updateMuzei() {
@@ -401,9 +412,9 @@ public class SunshineSyncAdapter extends AbstractThreadedSyncAdapter {
                     double low = cursor.getDouble(INDEX_MIN_TEMP);
                     String desc = cursor.getString(INDEX_SHORT_DESC);
 
-                    int iconId = Utility.getIconResourceForWeatherCondition(weatherId);
+                    int iconId = CommonUtils.getIconResourceForWeatherCondition(weatherId);
                     Resources resources = context.getResources();
-                    int artResourceId = Utility.getArtResourceForWeatherCondition(weatherId);
+                    int artResourceId = CommonUtils.getArtResourceForWeatherCondition(weatherId);
                     String artUrl = Utility.getArtUrlForWeatherCondition(context, weatherId);
 
                     // On Honeycomb and higher devices, we can retrieve the size of the large icon
