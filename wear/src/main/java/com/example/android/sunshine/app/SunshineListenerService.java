@@ -23,20 +23,16 @@ public class SunshineListenerService extends WearableListenerService {
     @Override
     public void onCreate() {
         super.onCreate();
-        Log.i(TAG, "Listener service created");
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.i(TAG, "Listener service destroyed");
     }
 
     @Override
     public void onDataChanged(DataEventBuffer dataEvents) {
         super.onDataChanged(dataEvents);
-
-        Log.i(TAG, "received new weather data");
 
         long token = Binder.clearCallingIdentity();
 
@@ -44,14 +40,10 @@ public class SunshineListenerService extends WearableListenerService {
 
             final List<DataEvent> events = FreezableUtils.freezeIterable(dataEvents);
 
-            Log.i(TAG, "checking data");
-
             for(DataEvent event : events) {
                 if(event.getType() == DataEvent.TYPE_CHANGED) {
                     String path = event.getDataItem().getUri().getPath();
-                    Log.i(TAG, String.format("Path=%s", path));
                     if(Protocol.PATH_WEATHER_DATA.equals(path)) {
-                        Log.i(TAG, "got an update, notifying watch face");
                         DataMapItem dataMapItem = DataMapItem.fromDataItem(event.getDataItem());
                         persistDataAndNotify(dataMapItem);
                     }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="digital_background_dark">#000000</color>
-    <color name="digital_background_light">#ffffff</color>
-    <color name="digital_text_light">#ffffff</color>
-    <color name="digital_text_dark">#000000</color>
+    <color name="digital_background_dark">@color/primary_dark</color>
+    <color name="digital_background_light">@color/primary_light</color>
+    <color name="digital_text_light">@color/primary_light</color>
+    <color name="digital_text_dark">@color/primary_text</color>
 </resources>

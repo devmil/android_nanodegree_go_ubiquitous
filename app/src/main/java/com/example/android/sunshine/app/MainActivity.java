@@ -36,7 +36,6 @@ import android.view.View;
 
 import com.example.android.sunshine.app.data.WeatherContract;
 import com.example.android.sunshine.app.sync.SunshineSyncAdapter;
-import com.example.android.sunshine.app.wear.WearUpdateHelper;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
@@ -60,7 +59,6 @@ public class MainActivity extends AppCompatActivity implements ForecastFragment.
     private boolean mTwoPane;
     private String mLocation;
     private GoogleCloudMessaging mGcm;
-    private WearUpdateHelper mWearUpdateHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,16 +125,13 @@ public class MainActivity extends AppCompatActivity implements ForecastFragment.
             // Store regID as null
             storeRegistrationId(this, null);
         }
-
-        mWearUpdateHelper = new WearUpdateHelper(this);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
-        //TODO: remove
-        menu.add("Refresh");
+
         return true;
     }
 
@@ -153,11 +148,6 @@ public class MainActivity extends AppCompatActivity implements ForecastFragment.
             return true;
         }
 
-        //TODO: remove
-        if("Refresh".equals(item.getTitle())) {
-            mWearUpdateHelper.doUpdate();
-            return true;
-        }
         return super.onOptionsItemSelected(item);
     }
 
