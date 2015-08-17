@@ -28,4 +28,30 @@ public class WeatherDataTelegram {
     public double getTemperatureMin() {
         return mTemperatureMin;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if(o == null) {
+            return false;
+        }
+        if(!(o instanceof WeatherDataTelegram)) {
+            return false;
+        }
+        WeatherDataTelegram castedObj = (WeatherDataTelegram)o;
+        return mWeatherUnit.getValue() == castedObj.mWeatherUnit.getValue()
+                && mWeatherConditionId == castedObj.mWeatherConditionId
+                && mTemperatureMax == castedObj.mTemperatureMax
+                && mTemperatureMin == castedObj.mTemperatureMin;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = 0;
+        result |= mWeatherUnit.getValue();
+        result |= mWeatherConditionId;
+        result |= Double.valueOf(mTemperatureMax).hashCode();
+        result |= Double.valueOf(mTemperatureMin).hashCode();
+
+        return result;
+    }
 }

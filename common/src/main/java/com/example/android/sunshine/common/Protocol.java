@@ -16,9 +16,6 @@ public final class Protocol {
     private static String KEY_TEMP_MAX = "WEATHER_TEMP_MAX";
     private static String KEY_TEMP_UNIT = "WEATHER_TEMP_UNIT";
 
-    //TODO: delete
-    private static String DUMMY_SALT_DATA = "DUMMY_SALT_DATA";
-
     public static WeatherDataTelegram telegramFromData(DataMap dm) {
         int conditionId = dm.getInt(KEY_CONDITION);
         double tempMin = dm.getDouble(KEY_TEMP_MIN);
@@ -38,6 +35,5 @@ public final class Protocol {
         dm.putDouble(KEY_TEMP_MIN, telegram.getTemperatureMin());
         dm.putDouble(KEY_TEMP_MAX, telegram.getTemperatureMax());
         dm.putInt(KEY_TEMP_UNIT, telegram.getWeatherUnit().getValue());
-        dm.putLong(DUMMY_SALT_DATA, Calendar.getInstance().getTimeInMillis());
     }
 }
